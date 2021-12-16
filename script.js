@@ -1,5 +1,5 @@
 const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21";
-const baseUrl = "http://usbank-pwc.azurewebsites.net/chatbot";
+const baseUrl = "https://usbank-pwc.azurewebsites.net/chatbot";
 const sessionId = "1";
 const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
 const errorMessage = "My apologies, I'm not available at the moment. =^.^=";
