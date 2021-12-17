@@ -122,7 +122,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("6");
   console.log("Inside setTimeOut");
 
-  removeLoader();
+  //removeLoader();
   let botResponse = content.response;
   let mainMessage = botResponse.message;
   let subMessage = botResponse.payload.message;
@@ -251,15 +251,11 @@ const resetInputField = () => {
 const scrollDown = () => {
   console.log("8");
   console.log("scrolling down");
-  //$chatbotMessages.scrollIntoView();
-  //window.scrollTo(0, $chatbotMessageWindow.scrollHeight)
-  console.log($chatbotMessageWindow.scrollHeight)
-  console.log($chatbotMessages.lastChild)
+
   const distanceToScroll =
     $chatbotMessageWindow.scrollHeight - (
       $chatbotMessages.lastChild.offsetHeight + 60);
 
-  console.log(distanceToScroll);
   $chatbotMessageWindow.scrollTop = distanceToScroll;
   return false;
 };
