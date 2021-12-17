@@ -129,6 +129,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   let btns = "";
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
+    $chatbotInput.disabled = true
     let buttons = botResponse.payload.value;
     if (buttons.length > 0) {
       buttons.forEach(element => {
@@ -143,6 +144,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       });
     }
   } else {
+    $chatbotInput.disabled = false
     console.log("subMessage: ", subMessage);
   }
 
