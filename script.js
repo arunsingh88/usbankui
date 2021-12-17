@@ -92,7 +92,7 @@ const initChatbot = () => {
     .then(res => {
       console.log("res: ", res);
       setResponse(res, loadingDelay + aiReplyDelay);
-      // aiMessage(loader, true, loadingDelay);
+      //aiMessage(loader, true, loadingDelay);
     })
     .catch(error => {
       setResponse(errorMessage, loadingDelay + aiReplyDelay);
@@ -117,9 +117,11 @@ const userMessage = content => {
 
 const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("content in ai: ", content);
+  console.log("Boo", isLoading)
   // setTimeout(() => {
   console.log("6");
   console.log("Inside setTimeOut");
+
   removeLoader();
   let botResponse = content.response;
   let mainMessage = botResponse.message;
@@ -135,20 +137,13 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
           console.log(element[key]);
           let target = element[key];
           let tTopic = botResponse.topic;
-          // console.log("botResponse: ",botResponse);
-          // let target = {
-          //   targetID:element[key],
-          //   topic:botResponse.topic
-          // };
-          // console.log("target: ",target);
+
           btns += `<button type="button"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
         }
       });
     }
   } else {
-
     console.log("subMessage: ", subMessage);
-
   }
 
   $chatbotMessages.innerHTML += `<li
@@ -160,26 +155,23 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
           </svg>
         </div>
         <span class='chatbot__arrow chatbot__arrow--left'></span>
-       
-        <div class='chatbot__message'>
-          ${mainMessage}
-          <br/>
-          <div class='chatbot__message'>
+        <div>
+        <div class='chatbot__message '>
+          ${mainMessage}</br>
           ${subMessage}
-          <br/>
-          <br/>
-          ${btns}
-        </div>
+          </div>
+      <div class= "chatbotBtn">
+      ${btns}
+      </div>
+      </div>
       </li>`;
+
+
+
   scrollDown();
-  // }
-
-
-  // , delay);
 };
 
 const btnclick = (target, topic, key) => {
-  console.log("click");
 
   sessionStorage.target = target;
   sessionStorage.topic = topic;
@@ -244,7 +236,7 @@ const setResponse = (val, delay = 0) => {
   console.log("Setting response function");
   setTimeout(() => {
 
-    aiMessage(val);
+    aiMessage(val, true);
   }, delay);
 };
 
@@ -257,9 +249,15 @@ const resetInputField = () => {
 const scrollDown = () => {
   console.log("8");
   console.log("scrolling down");
+  //$chatbotMessages.scrollIntoView();
+  //window.scrollTo(0, $chatbotMessageWindow.scrollHeight)
+  console.log($chatbotMessageWindow.scrollHeight)
+  console.log($chatbotMessages.lastChild)
   const distanceToScroll =
     $chatbotMessageWindow.scrollHeight - (
       $chatbotMessages.lastChild.offsetHeight + 60);
+
+  console.log(distanceToScroll);
   $chatbotMessageWindow.scrollTop = distanceToScroll;
   return false;
 };
@@ -297,7 +295,7 @@ const send = (text = "", target, topic) => {
     .then(res => {
       console.log("res: ", res);
       setResponse(res, loadingDelay + aiReplyDelay);
-      // aiMessage(loader, true, loadingDelay);
+      //aiMessage(loader, true, loadingDelay);
     })
     .catch(error => {
       setResponse(errorMessage, loadingDelay + aiReplyDelay);
