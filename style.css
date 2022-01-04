@@ -647,7 +647,9 @@ strong {
   background-color: #1b3281;
   color: #fff;
   border-radius: 6px;
-  width: auto;
+  width: 150px;
+  height: 65px;
+  flex-wrap: wrap;
   padding: 12px 20px;
   margin: 5px;
   border: none;
