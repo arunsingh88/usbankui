@@ -15,8 +15,10 @@ const $chatbotMessageWindow = $document.querySelector(
 const $chatbotHeader = $document.querySelector(".chatbot__header");
 const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
+const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
-
+$chatbotInputBox.style.display = "none"
+console.log($chatbotInputBox)
 document.addEventListener(
   "keypress",
   event => {
@@ -130,6 +132,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
     $chatbotInput.disabled = true
+    $chatbotInputBox.style.display = "none"
     let buttons = botResponse.payload.value;
     if (buttons.length > 0) {
       buttons.forEach(element => {
@@ -145,6 +148,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
     }
   } else {
     $chatbotInput.disabled = false
+    $chatbotInputBox.style.display = "block"
     console.log("subMessage: ", subMessage);
   }
 
