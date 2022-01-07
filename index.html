@@ -5,7 +5,8 @@
   <title>USBank</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="./style.css">
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -16,18 +17,26 @@
 
 <div class="chatbot chatbot--closed ">
   <div class="chatbot__header">
-    <p><strong>Got a question?</strong> <span class="u-text-highlight">Ask Joey</span></p>
+
+   
+
     <!-- <svg class="chatbot__close-button icon-speech" viewBox="0 0 32 32">
       <use xlink:href="#icon-speech" />
     </svg> -->
     <!-- <svg class="chatbot__close-button icon-close" viewBox="0 0 32 32">
       <use xlink:href="#icon-restart" />
     </svg> -->
-    <svg class="chatbot__close-button icon-close" viewBox="0 0 32 32">
+    <!-- <svg class="chatbot__close-button icon-close" viewBox="0 0 32 32">
       <use xlink:href="#icon-close" />
-    </svg>
+    </svg> -->
+    <span class="material-icons close_btn">close</span>
   </div>
+  
   <div class="chatbot__message-window">
+    <div class="nwHeader">
+      <div class="circle2"></div>
+      <p><strong>Hi, I'm Joey <br>Your US Bank Assistant<br>How can I help you?</strong></p>
+    </div>
     <ul class="chatbot__messages">
       
       <li class="is-ai animation">
