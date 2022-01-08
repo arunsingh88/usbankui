@@ -283,6 +283,7 @@
 }
 
 .chatbot__header {
+  background-color: #fff;
   color: #fff;
   display: flex;
   align-items: center;
