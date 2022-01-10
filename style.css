@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
-.chatbot {
+/* .chatbot {
   display: none;
   position: fixed;
   top: 0;
@@ -20,7 +20,7 @@
 .chatbot.chatbot--closed {
   top: auto;
   width: 100%;
-}
+} */
 
 /* .chatbot__header {
   color: #fff;
@@ -244,7 +244,7 @@
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  background-image: url("/assets/2QCbaSd-man-symbol-red-clipart.png");
+  background-image: url("/assets/newJoey.png");
   background-repeat: no-repeat;
   background-position: center;
   overflow: hidden;
@@ -255,7 +255,7 @@
   height: 75px;
   width: 75px;
   border-radius: 50%;
-  background-image: url("/assets/2QCbaSd-man-symbol-red-clipart.png");
+  background-image: url("/assets/newJoey.png");
   background-repeat: no-repeat;
   background-position: center;
   overflow: hidden;
