@@ -17,7 +17,7 @@ const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
-$chatbotInputBox.style.display = "none"
+//$chatbotInputBox.style.display = "none"
 console.log($chatbotInputBox)
 document.addEventListener(
   "keypress",
@@ -132,7 +132,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
     $chatbotInput.disabled = true
-    $chatbotInputBox.style.display = "none"
+    //$chatbotInputBox.style.display = "none"
     let buttons = botResponse.payload.value;
     if (buttons.length > 0) {
       buttons.forEach(element => {
@@ -155,19 +155,30 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   $chatbotMessages.innerHTML += `<li
       class='is-ai animation'
       id='${isLoading ? "is-loading" : ""}'>
-        <div class="is-ai__profile-picture">
-        <div class = "circle" >
+<div class = "message_container">
+<div class = "assigning_margin">
+        <div class="is-ai__profile-picture circle">
         </div>
-       
-        </div>
+        <div class ="message_content">
         <span class='chatbot__arrow chatbot__arrow--left'></span>
         <div>
-        <div class='chatbot__message '>
-          ${mainMessage}</br>
-          ${subMessage}
+        <div class='chatbot__message1'>
+        <p class = 'chatbot__message'> ${mainMessage}</br>
+        ${subMessage}</p>
+         
           </div>
+          </div>
+          </div>
+          </div>
+          <!--Button body--!>
+        <div class = "input-body">
+        <div class = "button-area" style = "height:auto"> 
+        <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
       <div class= "chatbotBtn">
+    
       ${btns}
+      </div>
+      </div>
       </div>
       </div>
       </li>`;
