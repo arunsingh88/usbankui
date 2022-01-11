@@ -36,7 +36,7 @@ $chatbotHeader.addEventListener(
   "click",
   () => {
     // toggle($chatbot, "chatbot--closed");
-    // $chatbotInput.focus();
+     $chatbotInput.focus();
     var element = document.getElementsByClassName("chatbot");
     element[0].style.display = "none";
     document.getElementById("chat-circle").style.display = "block";
@@ -132,7 +132,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
     $chatbotInput.disabled = true
-    //$chatbotInputBox.style.display = "none"
+    $chatbotInputBox.style.display = "block";
     let buttons = botResponse.payload.value;
     if (buttons.length > 0) {
       buttons.forEach(element => {
