@@ -1,5 +1,6 @@
 const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21";
 const baseUrl = "https://chatbot-py.azurewebsites.net/chatbot";
+const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
 const sessionId = "1";
 const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
 const errorMessage = "My apologies, I'm not available at the moment. =^.^=";
@@ -17,7 +18,7 @@ const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
-$chatbotInputBox.style.display = "none"
+// $chatbotInputBox.style.display = "none"
 console.log($chatbotInputBox)
 document.addEventListener(
   "keypress",
@@ -71,7 +72,45 @@ const toggle = (element, klass) => {
   element.className = classes.join(" ");
 };
 
-
+const getAnswer = (question, qnaId) => {
+  fetch(qnaUrl, {
+    method: "POST",
+    dataType: "json",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Ocp-Apim-Subscription-Key": "3c9725733f9c408a9b7d355837396cf0"
+    },
+    body: question.trim() !== '' ? JSON.stringify({
+      "question": question
+    }) : JSON.stringify({
+      "qnaId": qnaId
+    }),
+  })
+    .then(response => response.json())
+    .then(res => {
+      if (res.status < 200 || res.status >= 300) {
+        let error = new Error(res.statusText);
+        throw error;
+      }
+      return res;
+    })
+    .then(res => {
+      console.log("res: ", res);
+      let response = {
+        response: {
+          message: res.answers[0].answer,
+          payload: { message: "" }
+        }
+      }
+      setResponse(response, loadingDelay + aiReplyDelay);
+      //aiMessage(loader, true, loadingDelay);
+    })
+    .catch(error => {
+      setResponse(errorMessage, loadingDelay + aiReplyDelay);
+      resetInputField();
+      console.log(error);
+    });
+};
 
 const initChatbot = () => {
   fetch(baseUrl, {
@@ -119,10 +158,7 @@ const userMessage = content => {
 
 const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("content in ai: ", content);
-  console.log("Boo", isLoading)
-  // setTimeout(() => {
   console.log("6");
-  console.log("Inside setTimeOut");
 
   //removeLoader();
   let botResponse = content.response;
@@ -131,8 +167,8 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   let btns = "";
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
-    $chatbotInput.disabled = true
-    $chatbotInputBox.style.display = "none"
+    // $chatbotInput.disabled = true
+    // $chatbotInputBox.style.display = "none"
     let buttons = botResponse.payload.value;
     if (buttons.length > 0) {
       buttons.forEach(element => {
@@ -147,8 +183,8 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       });
     }
   } else {
-    $chatbotInput.disabled = false
-    $chatbotInputBox.style.display = "block"
+    // $chatbotInput.disabled = false
+    // $chatbotInputBox.style.display = "block"
     console.log("subMessage: ", subMessage);
   }
 
@@ -221,6 +257,7 @@ const validateMessage = () => {
   if (safeText.length && safeText !== " ") {
     resetInputField();
     userMessage(safeText);
+
     send(safeText);
 
   }
@@ -274,35 +311,39 @@ const send = (text = "", target, topic) => {
     console.log("tgt in if: ", target);
     console.log("topic in if: ", topic);
   }
-
-  fetch(baseUrl, {
-    method: "POST",
-    dataType: "json",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8"
-    },
-    body: JSON.stringify({
-      "source": target,
-      "topic": topic
-    }),
-  })
-    .then(response => response.json())
-    .then(res => {
-      if (res.status < 200 || res.status >= 300) {
-        let error = new Error(res.statusText);
-        throw error;
-      }
-      return res;
+  if (target && target !== "") {
+    console.log('Line 312')
+    fetch(baseUrl, {
+      method: "POST",
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({
+        "source": target,
+        "topic": topic
+      }),
     })
-    .then(res => {
-      console.log("res: ", res);
-      setResponse(res, loadingDelay + aiReplyDelay);
-      //aiMessage(loader, true, loadingDelay);
-    })
-    .catch(error => {
-      setResponse(errorMessage, loadingDelay + aiReplyDelay);
-      resetInputField();
-      console.log(error);
-    });
+      .then(response => response.json())
+      .then(res => {
+        if (res.status < 200 || res.status >= 300) {
+          let error = new Error(res.statusText);
+          throw error;
+        }
+        return res;
+      })
+      .then(res => {
+        console.log("res: ", res);
+        setResponse(res, loadingDelay + aiReplyDelay);
+        //aiMessage(loader, true, loadingDelay);
+      })
+      .catch(error => {
+        setResponse(errorMessage, loadingDelay + aiReplyDelay);
+        resetInputField();
+        console.log(error);
+      });
+  } else {
 
+    getAnswer(text)
+  }
 };
