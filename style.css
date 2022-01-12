@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 /* .chatbot {
   display: none;
   position: fixed;
@@ -108,7 +109,6 @@
 
 .chatbot__message {
   display: inline-block;
-  padding: 12px 20px;
   word-break: break-word;
   margin: 0;
   border-radius: 6px;
@@ -215,7 +215,7 @@
   color: #d20c11;
 }
 
-.chatbot__submit {
+/* .chatbot__submit {
   fill: #d20c11;
   height: 22px;
   width: 22px;
@@ -224,7 +224,7 @@
 }
 .chatbot__submit:hover {
   fill: #720609;
-}
+} */
 
 .u-text-highlight {
   color: #d20c11;
@@ -244,7 +244,7 @@
   height: 75px;
   width: 75px;
   border-radius: 50%;
-  background-image: url("/assets/newJoey.png");
+  background-image: url("./assets/newJoey.png");
   background-repeat: no-repeat;
   background-position: center;
   overflow: hidden;
@@ -392,7 +392,7 @@
 } */
 
 .circle {
-  background-image: url("/assets/newJoey.png");
+  background-image: url("./assets/newJoey.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -567,14 +567,14 @@
 }
 
 .chatbot__submit {
-  fill: #bf2024;
+  fill: #0a41c5;
   height: 22px;
   width: 22px;
   transition: fill 0.2s ease;
   cursor: pointer;
 }
 .chatbot__submit:hover {
-  fill: #681114;
+  fill: linear-gradient(-180deg, #0a41c5, #0c2074);
 }
 
 .u-text-highlight {
@@ -728,7 +728,7 @@ body {
   background-size: cover;
   max-width: 100%;
   height: auto;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
 }
 
@@ -792,17 +792,16 @@ strong {
 }
 
 .chatbotBtn button {
-  background-color: rgb(236, 35, 36);
   color: rgb(255, 255, 255);
   /* border-width: 2px; */
   border-style: none;
-  background-color: #ec2324 !important;
+  background-color: #0a41c5 !important;
   letter-spacing: -0.5px;
   margin-right: 6px;
   margin-bottom: 6px;
   cursor: pointer;
   transition: background-color 0.25s, border-color 0.25s, color 0.75s;
-  padding: 20px 25px;
+  padding: 15px 20px;
   width: calc(50% - 6px);
   cursor: pointer;
   text-align: center;
@@ -811,10 +810,12 @@ strong {
   justify-content: center;
   align-items: stretch;
   border-radius: 8px;
+  font-weight: 300;
+  font-size: 16px;
 }
 
 .chatbotBtn button:hover {
-  background-color: rgb(255, 65, 66) !important;
+  background: linear-gradient(-180deg, #0a41c5, #0c2074) !important;
 }
 
 #LandbotLauncherTooltip {
