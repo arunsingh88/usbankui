@@ -160,7 +160,6 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         <div class="is-ai__profile-picture circle">
         </div>
         <div class ="message_content">
-        <span class='chatbot__arrow chatbot__arrow--left'></span>
         <div>
         <div class='chatbot__message1'>
         <p class = 'chatbot__message'> ${mainMessage}</br>
