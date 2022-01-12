@@ -194,27 +194,35 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
     // $chatbotInputBox.style.display = "block"
     console.log("subMessage: ", subMessage);
   }
-
   $chatbotMessages.innerHTML += `<li
       class='is-ai animation'
       id='${isLoading ? "is-loading" : ""}'>
-        <div class="is-ai__profile-picture">
-          <svg class="icon-avatar" viewBox="0 0 50 50">
-            <use xlink:href="#avatar" />
-          </svg>
+<div class = "message_container">
+<div class = "assigning_margin">
+        <div class="is-ai__profile-picture circle">
         </div>
-        <span class='chatbot__arrow chatbot__arrow--left'></span>
+        <div class ="message_content">
         <div>
-        <div class='chatbot__message '>
-          ${mainMessage}</br>
-          ${subMessage}
+        <div class='chatbot__message1'>
+        <p class = 'chatbot__message'> ${mainMessage}</br>
+        ${subMessage}</p>
+         
           </div>
+          </div>
+          </div>
+          </div>
+          <!--Button body--!>
+        <div class = "input-body">
+        <div class = "button-area" style = "height:auto"> 
+        <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
       <div class= "chatbotBtn">
+    
       ${btns}
       </div>
       </div>
+      </div>
+      </div>
       </li>`;
-
 
 
   scrollDown();
