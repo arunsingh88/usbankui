@@ -457,9 +457,10 @@
   margin-right: 30px;
 }
 .is-user .chatbot__message {
-  background-color: #fde7e8;
+  background-color: rgba(118, 118, 118, 0.838);
   margin-left: 30px;
-  color: #310001;
+  color: #ffffff;
+  padding: 20px;
 }
 .chatbot__message a {
   color: #bf2024;
