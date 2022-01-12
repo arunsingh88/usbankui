@@ -182,6 +182,13 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         }
       });
     }
+  } else if (botResponse.payload.type == "end") {
+    let buttons = botResponse.payload.message.split("|");
+    if (buttons.length > 0) {
+      buttons.forEach(element => {
+        btns += `<button type="button"  onclick="btnclick('')" >${element}</button>`;
+      });
+    }
   } else {
     // $chatbotInput.disabled = false
     // $chatbotInputBox.style.display = "block"
