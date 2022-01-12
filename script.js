@@ -102,7 +102,13 @@ const getAnswer = (question, qnaId) => {
           payload: { message: "" }
         }
       }
-      setResponse(response, loadingDelay + aiReplyDelay);
+      console.log('Answer', res.answers[0].answer)
+      console.log('Answer', res.answers[0].answer.split())
+      if (res.answers[0].answer.includes("$")) {
+        send("", res.answers[0].answer.split(" ")[1], "home");
+      } else {
+        setResponse(response, loadingDelay + aiReplyDelay);
+      }
       //aiMessage(loader, true, loadingDelay);
     })
     .catch(error => {
@@ -183,7 +189,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       });
     }
   } else if (botResponse.payload.type == "end") {
-    let buttons = botResponse.payload.message.split("|");
+    let buttons = botResponse.payload.message.split("/");
     if (buttons.length > 0) {
       buttons.forEach(element => {
         btns += `<button type="button"  onclick="btnclick('')" >${element}</button>`;
