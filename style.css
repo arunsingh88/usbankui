@@ -763,6 +763,11 @@ strong {
   border-radius: 50%;
 }
 
+#front-img :hover {
+  width: 60px;
+  height: 60px;
+}
+
 .chatbotBtn {
   display: flex;
   justify-content: flex-start;
@@ -806,7 +811,7 @@ strong {
   color: #fff;
   border-radius: 8px;
   height: 55px;
-  width: 150px;
+  width: 160px;
   display: inline-block;
   position: absolute;
   left: -200px;
@@ -832,7 +837,7 @@ strong {
 }
 
 .LandbotLauncherTooltip .subtitle {
-  font-size: 12px;
+  font-size: 10px !important;
   color: rgba(255, 255, 255, 0.7);
 }
 
