@@ -13,7 +13,7 @@ const $chatbot = $document.querySelector(".chatbot");
 const $chatbotMessageWindow = $document.querySelector(
   ".chatbot__message-window");
 
-const $chatbotHeader = $document.querySelector(".chatbot__header");
+const $chatbotHeader = $document.querySelector(".close_btn");
 const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");

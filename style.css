@@ -262,14 +262,12 @@
   background-color: #f4f4f4;
 }
 
-@media screen and (min-width: 640px) {
-  .chatbot {
-    width: 33%;
-    right: 0px;
-    top: auto;
-  }
+.chatbot {
+  width: 33%;
+  right: 0px;
+  top: auto;
 }
-@media only screen and (max-width: 450px) {
+@media only screen and (max-device-width: 480px) {
   .chatbot {
     height: 95%;
     width: 100%;
@@ -277,6 +275,7 @@
     top: auto;
   }
 }
+
 .chatbot.chatbot--closed {
   top: auto;
   width: 100%;
@@ -287,7 +286,7 @@
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 54px;
   padding: 0 20px;
   width: 100%;
@@ -317,6 +316,12 @@
   border-radius: 2px;
   color: white;
   background-color: #d20c11;
+}
+.refresh_btn {
+  padding: 4px;
+  border-radius: 2px;
+  color: white;
+  background-color: #1d41c5;
 }
 
 .chatbot__message-window {
