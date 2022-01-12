@@ -269,6 +269,14 @@
     top: auto;
   }
 }
+@media only screen and (max-width: 450px) {
+  .chatbot {
+    height: 95%;
+    width: 100%;
+    right: 0px;
+    top: auto;
+  }
+}
 .chatbot.chatbot--closed {
   top: auto;
   width: 100%;
