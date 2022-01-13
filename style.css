@@ -321,7 +321,7 @@
   padding: 4px;
   border-radius: 2px;
   color: white;
-  background-color: #1d41c5;
+  background-color: #1b3281;
 }
 
 .chatbot__message-window {
@@ -737,6 +737,7 @@ input {
 }
 
 strong {
+  color: #2c2c2c;
   font-weight: 600;
 }
 
@@ -820,7 +821,7 @@ strong {
 .splbtn button {
   width: 90% !important;
   background-color: white;
-  color: black;
+  color: #2c2c2c;
 }
 
 .splbtn button:first-child {
@@ -830,6 +831,7 @@ strong {
 
 .chatbotBtn button:hover {
   background-color: rgb(255, 65, 66) !important;
+  color: white;
 }
 
 #LandbotLauncherTooltip {
