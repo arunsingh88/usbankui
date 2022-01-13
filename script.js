@@ -1,5 +1,6 @@
-const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21"; const baseUrl = "https://chatbot-py.azurewebsites.net/chatbot";
-//const baseUrl = "http://127.0.0.1:5000/chatbot"
+const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21";
+//const baseUrl = "https://chatbot-py.azurewebsites.net/chatbot";
+const baseUrl = "http://127.0.0.1:5000/chatbot"
 const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
 const sessionId = "1";
 const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
@@ -105,7 +106,12 @@ const getAnswer = (question, qnaId) => {
       console.log('Answer', res.answers[0].answer)
       console.log('Answer', res.answers[0].answer.split())
       if (res.answers[0].answer.includes("$")) {
-        send("", res.answers[0].answer.split(" ")[1], "home");
+        if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
+          send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
+        }
+        else {
+          send("", res.answers[0].answer.split(" ")[1], "Digital_Payments");
+        }
       } else {
         setResponse(response, loadingDelay + aiReplyDelay);
       }
