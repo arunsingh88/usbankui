@@ -171,6 +171,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   let mainMessage = botResponse.message;
   let subMessage = botResponse.payload.message;
   let btns = "";
+  
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
     // $chatbotInput.disabled = true
@@ -192,7 +193,8 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
     let buttons = botResponse.payload.message.split("/");
     if (buttons.length > 0) {
       buttons.forEach(element => {
-        btns += `<button type="button"  onclick="btnclick('')" >${element}</button>`;
+        btns += `
+        <button type="button"  onclick="btnclick('')" >${element}</button>`;
       });
     }
   } else {

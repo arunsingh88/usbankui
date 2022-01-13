@@ -5,17 +5,17 @@
   <title>USBank</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="./style.css">
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<div id = "content">
+<div id = "content" class="animation_apply">
 <div id="chat-circle">
   <div id="front-img" style="background-image: url('./assets/newJoey.png');transform: scale(1.5);"></div>	
-  <span id="LandbotLauncherTooltip"><div class="title">Ask Mr Joey,</div><div class="subtitle">Our Digital Assistant</div></span>
-</div>
-  
+  <span id="LandbotLauncherTooltip"><div class="title">Ask Joey,</div><div class="subtitle">Our Digital Assistant</div></span>
 </div>
 </div>
 
@@ -94,6 +94,14 @@
 </svg>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.1/fetch.min.js'></script><script  src="./script.js"></script>
+<script>
+//   $("#content")(function(){
+//   $(this).addClass("animation_apply");        
+// });
+  $("#content").hover(function(){
+  $(this).removeClass("animation_apply");        
+});
 
+</script>
 </body>
 </html>

@@ -745,13 +745,44 @@ strong {
   margin-bottom: 20px;
 }
 
+#content {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 66px;
+  height: 66px;
+}
+
+.animation_apply {
+  animation: bounce 2s;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(0.5, 0.02, 1, 0.3);
+  animation-iteration-count: infinite;
+}
+
+@keyframes bounce {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 100px, 0);
+  }
+}
+
+#content:hover {
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -o-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
 #chat-circle {
   position: fixed;
   bottom: 50px;
   right: 50px;
   background: #bf2024;
-  width: 40px;
-  height: 40px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   color: white;
   /* padding: 12px; */
@@ -765,8 +796,8 @@ strong {
 
 #front-img {
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  bottom: 62px;
+  right: 62px;
   width: 40px;
   height: 40px;
   display: block;
