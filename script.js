@@ -199,6 +199,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       });
     }
   } else if (botResponse.payload.type == "end") {
+    subMessage = ''
     let buttons = botResponse.payload.message.split("/");
     if (buttons.length > 0) {
       let items = ['45%', '65%', '35%', '42%', '37%', '84%', '64%', '65%', '25%']
