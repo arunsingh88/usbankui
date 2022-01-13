@@ -899,7 +899,7 @@ strong {
 }
 
 .chatbotBtn button:hover {
-  background-color: #1b338175 !important;
+  background-color: #1b3381cb !important;
   /* background: linear-gradient(-180deg, #0a41c5, #0c2074) !important; */
   color: white;
 }
