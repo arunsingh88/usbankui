@@ -790,13 +790,17 @@ strong {
   /* flex-direction: column; */
   /* margin-top: 10px; */
 }
-
+.different {
+  background-color: #ec2324 !important;
+}
+.different button:hover {
+  background-color: #1b3281 !important;
+}
 .chatbotBtn button {
-  background-color: rgb(236, 35, 36);
   color: rgb(255, 255, 255);
   /* border-width: 2px; */
   border-style: none;
-  background-color: #ec2324 !important;
+  background-color: #1b3281;
   letter-spacing: -0.5px;
   margin-right: 6px;
   margin-bottom: 6px;
@@ -811,6 +815,17 @@ strong {
   justify-content: center;
   align-items: stretch;
   border-radius: 8px;
+}
+
+.splbtn button {
+  width: 90% !important;
+  background-color: white;
+  color: black;
+}
+
+.splbtn button:first-child {
+  background-color: #1b3281 !important;
+  color: white;
 }
 
 .chatbotBtn button:hover {

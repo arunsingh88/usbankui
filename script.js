@@ -183,16 +183,25 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
           console.log(element[key]);
           let target = element[key];
           let tTopic = botResponse.topic;
-
-          btns += `<button type="button"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
+          if (key === 'I know what product I want') {
+            console.log('in different product', key)
+            btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
+          } else {
+            btns += `<button type="button"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
+          }
         }
       });
     }
   } else if (botResponse.payload.type == "end") {
     let buttons = botResponse.payload.message.split("/");
     if (buttons.length > 0) {
+      let items = ['45%', '65%', '35%', '42%', '37%', '84%', '64%', '65%', '25%']
       buttons.forEach(element => {
-        btns += `<button type="button"  onclick="btnclick('')" >${element}</button>`;
+        let item = items[Math.floor(Math.random() * items.length)];
+        btns += `<div style="width:calc(50% - 6px)" class="splbtn"><button type="button" >${element}<br>(${item} of your peer group uses this product)</button>
+        <button type="button" onclick="openURL()">Confirm Viability & Apply Online</button>
+        <button type="button" onclick="openURL()">Schedule a call with a representative</button>
+        <button type="button" onclick="openURL()">Learn more/FAQs</button></div>`;
       });
     }
   } else {
@@ -222,7 +231,6 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         <div class = "button-area" style = "height:auto"> 
         <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
       <div class= "chatbotBtn">
-    
       ${btns}
       </div>
       </div>
@@ -243,6 +251,10 @@ const btnclick = (target, topic, key) => {
   userMessage(key);
   send("", target, topic);
 
+}
+
+const openURL = () => {
+  window.open("https://www.usbank.com/about-us-bank/online-security/fraud-prevention.html", "_blank");
 }
 
 
