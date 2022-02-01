@@ -25,6 +25,7 @@ const userprofile = {
   Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 5, amount: "$5000" },
 
 }
+sessionStorage.username = 'Mike'
 // $chatbotInputBox.style.display = "none"
 console.log($chatbotInputBox)
 document.addEventListener(
