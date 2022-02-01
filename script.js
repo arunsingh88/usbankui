@@ -1,7 +1,7 @@
 const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21";
 const baseUrl = "https://chatbot-py.azurewebsites.net/chatbot";
 //const baseUrl = "http://127.0.0.1:5000/chatbot"
-//const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
+const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
 const sessionId = "1";
 const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
 const errorMessage = "My apologies, I'm not available at the moment. =^.^=";
@@ -240,12 +240,28 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
     if (buttons.length > 0) {
       let items = ['15%', '25%', '10%', '4%', '7%', '12%']
       let tooltip = {
-        "Wire": "Hello tooltip of wire",
-        "ACH": ""
+        "ACH": "Service that allows customers to eliminate paper checks by using electronic transactions with 1-2 days settlement and bulk processing capabilities",
+        "Real time payment": "It allows payment originators to make payments to their trading partners in real-time 24x7",
+        "Wire": "Moves funds quickly and securely around the country and the world for immediate availability",
+        "Disbursements via Zelle": "Allows businesses of all sizes to initiate low-cost electronic payments to consumer recipients without the hassle of collecting and storing their bank account information",
+        "Paper Positive Pay": "Paper Positive Pay is a check payment protection solution that helps you detect check fraud by electronically matching checks to items that you disbursed",
+        "ACH Positive Pay": "ACH Positive Pay is an ACH payment protection solution that prevents unauthorized debits against your accounts",
+        "Deposit Express": "Allows small businesses to deposit checks electronically to their U.S. Bank business accounts using a desktop check scanner and a PC",
+        "Mobile Deposit Express": "Allows businesses to deposit checks using a mobile device from a remote location or from their office",
+        "On-Site Electronic Deposit": "Enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
+
       }
       let url = {
-        "Wire": "https://www.google.com",
-        "ACH": ""
+        "ACH": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/ach.html",
+        "Real time payment": "https://www.usbank.com/financialiq/improve-your-operations/manage-payments/real-time-payments-the-next-major-treasury-disruptor.html",
+        "Wire": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/wire-transfers.html",
+        "Disbursements via Zelle": "https://www.usbank.com/online-mobile-banking/zelle-person-to-person-payments.html",
+        "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
+        "ACH Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
+        "Deposit Express": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html",
+        "Mobile Deposit Express": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html",
+        "On-Site Electronic Deposit": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html",
+
       }
       buttons.forEach(element => {
         let item = items[Math.floor(Math.random() * items.length)];
