@@ -19,6 +19,12 @@ const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
+const userprofile = {
+  Mike: { industry: "Healthcare", revenue: "$6.2 million", checks: 5, amount: "$5000" },
+  Anne: { industry: "Healthcare", revenue: "$5.3 million", checks: 5, amount: "$5000" },
+  Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 5, amount: "$5000" },
+
+}
 // $chatbotInputBox.style.display = "none"
 console.log($chatbotInputBox)
 document.addEventListener(
@@ -107,7 +113,7 @@ const getAnswer = (question, qnaId) => {
       console.log('Answer', res.answers[0].answer.split())
       if (res.answers[0].answer.includes("$")) {
         if (res.answers[0].answer.split(" ")[0] == "$$") {
-          const mainMessage = res.answers[0].answer.split(" ")[1]
+          const mainMessage = res.answers[0].answer.replace('$$', '').trim()
           const btns = `<button type="button" onclick="send('','Vkk1kHjjtwqD61RsSIxe-6','home')" >Yes</button> <button type="button"  onclick="send('','Vkk1kHjjtwqD61RsSIxe-33','home')" >No</button>`;
           $chatbotMessages.innerHTML += `<li
           class='is-ai animation'
@@ -240,8 +246,8 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
 
   //removeLoader();
   let botResponse = content.response;
-  let mainMessage = botResponse.message.replace('"XXX"', sessionStorage.username).replace("YYY", sessionStorage.username).replace("ZZZ", sessionStorage.username);
-  let subMessage = botResponse.payload.message;
+  let mainMessage = botResponse.message.replace("XXX", sessionStorage.username);
+  let subMessage = botResponse.payload.message.replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue);
   let btns = "";
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
