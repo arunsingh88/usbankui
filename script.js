@@ -143,9 +143,10 @@ const getAnswer = (question, qnaId) => {
           </div>
           </li>`;
           scrollDown()
-        }
-        else if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
+        } else if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
           send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
+        } else if (res.answers[0].answer.split(" ")[1] == "dyWy75i-FhSXQeEBGfzN-10") {
+          send("", res.answers[0].answer.split(" ")[1], "Money_Transfer");
         }
         else {
           send("", res.answers[0].answer.split(" ")[1], "Digital_Payments");
