@@ -141,6 +141,7 @@ const getAnswer = (question, qnaId) => {
           </div>
           </div>
           </li>`;
+          scrollDown()
         }
         else if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
           send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
@@ -247,7 +248,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   //removeLoader();
   let botResponse = content.response;
   let mainMessage = botResponse.message.replace("XXX", sessionStorage.username);
-  let subMessage = botResponse.payload.message ? botResponse.payload.message.replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue) : undefined;
+  let subMessage = (botResponse.payload.message || '').replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue);
   let btns = "";
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
