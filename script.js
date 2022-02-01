@@ -106,7 +106,37 @@ const getAnswer = (question, qnaId) => {
       console.log('Answer', res.answers[0].answer)
       console.log('Answer', res.answers[0].answer.split())
       if (res.answers[0].answer.includes("$")) {
-        if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
+        if (res.answers[0].answer.split(" ")[0] == "$$") {
+          const mainMessage = res.answers[0].answer.split(" ")[1]
+          const btns = `<button type="button" onclick="send('','Vkk1kHjjtwqD61RsSIxe-6','home')" >Yes</button> <button type="button"  onclick="send('','Vkk1kHjjtwqD61RsSIxe-33','home')" >No</button>`;
+          $chatbotMessages.innerHTML += `<li
+          class='is-ai animation'
+          id='is-loading'>
+        <div class = "message_container">
+        <div class = "assigning_margin">
+            <div class="is-ai__profile-picture circle">
+            </div>
+            <div class ="message_content">
+            <div>
+            <div class='chatbot__message1'>
+            <p class = 'chatbot__message'> ${mainMessage}   
+              </div>
+              </div>
+              </div>
+              </div>
+              <!--Button body--!>
+            <div class = "input-body">
+            <div class = "button-area" style = "height:auto"> 
+            <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
+          <div class= "chatbotBtn">
+          ${btns}
+          </div>
+          </div>
+          </div>
+          </div>
+          </li>`;
+        }
+        else if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
           send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
         }
         else {
@@ -210,7 +240,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
 
   //removeLoader();
   let botResponse = content.response;
-  let mainMessage = botResponse.message.replace("undefined", "").replace("XXX", sessionStorage.username);
+  let mainMessage = botResponse.message.replace('"XXX"', sessionStorage.username).replace("YYY", sessionStorage.username).replace("ZZZ", sessionStorage.username);
   let subMessage = botResponse.payload.message;
   let btns = "";
   console.log("mainMessage: ", mainMessage);
@@ -292,7 +322,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         <div>
         <div class='chatbot__message1'>
         <p class = 'chatbot__message'> ${mainMessage}</br>
-        ${subMessage}</p>
+        ${subMessage || ''}</p>
          
           </div>
           </div>
