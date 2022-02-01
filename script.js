@@ -1,7 +1,7 @@
 const accessToken = "2d1ddeaadc20462dba88c9beebbe0a21";
 const baseUrl = "https://chatbot-py.azurewebsites.net/chatbot";
-// const baseUrl = "http://127.0.0.1:5000/chatbot"
-const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
+//const baseUrl = "http://127.0.0.1:5000/chatbot"
+//const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
 const sessionId = "1";
 const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
 const errorMessage = "My apologies, I'm not available at the moment. =^.^=";
@@ -124,7 +124,10 @@ const getAnswer = (question, qnaId) => {
     });
 };
 
-const initChatbot = () => {
+const initChatbot = (refresh) => {
+  if (refresh == 'refresh') {
+    $chatbotMessages.innerHTML = ''
+  }
   fetch(baseUrl, {
     method: "POST",
     dataType: "json",
@@ -132,6 +135,9 @@ const initChatbot = () => {
       "Content-Type": "application/json; charset=utf-8"
     },
     body: JSON.stringify({
+      "source": '',
+      "topic": '',
+      "login": sessionStorage.login
     }),
   })
     .then(response => response.json())
@@ -154,8 +160,38 @@ const initChatbot = () => {
     });
 };
 
-initChatbot();
+//initChatbot();
 
+const setupChatbot = () => {
+  const mainMessage = "Hello, I\u2019m Joey, your dedicated resource to finding the right solution. To get started, please tell me, Are you existing user or a new user?"
+  const btns = `<button type="button" onclick="login('new')" >New User</button> <button type="button"  onclick="login('existing')" >Existing User</button>`;
+  $chatbotMessages.innerHTML += `<li
+  class='is-ai animation'
+  id='is-loading'>
+<div class = "message_container">
+<div class = "assigning_margin">
+    <div class="is-ai__profile-picture circle">
+    </div>
+    <div class ="message_content">
+    <div>
+    <div class='chatbot__message1'>
+    <p class = 'chatbot__message'> ${mainMessage}   
+      </div>
+      </div>
+      </div>
+      </div>
+      <!--Button body--!>
+    <div class = "input-body">
+    <div class = "button-area" style = "height:auto"> 
+    <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
+  <div class= "chatbotBtn">
+  ${btns}
+  </div>
+  </div>
+  </div>
+  </div>
+  </li>`;
+}
 const userMessage = content => {
   console.log("4");
   console.log("setting up the chat message from user into window");
@@ -167,14 +203,14 @@ const userMessage = content => {
     </li>`;
   scrollDown();
 };
-
+setupChatbot()
 const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("content in ai: ", content);
   console.log("6");
 
   //removeLoader();
   let botResponse = content.response;
-  let mainMessage = botResponse.message;
+  let mainMessage = botResponse.message.replace("undefined", "").replace("XXX", sessionStorage.username);
   let subMessage = botResponse.payload.message;
   let btns = "";
   console.log("mainMessage: ", mainMessage);
@@ -202,13 +238,26 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
     subMessage = ''
     let buttons = botResponse.payload.message.split("/");
     if (buttons.length > 0) {
-      let items = ['45%', '65%', '35%', '42%', '37%', '84%', '64%', '65%', '25%']
+      let items = ['15%', '25%', '10%', '4%', '7%', '12%']
+      let tooltip = {
+        "Wire": "Hello tooltip of wire",
+        "ACH": ""
+      }
+      let url = {
+        "Wire": "https://www.google.com",
+        "ACH": ""
+      }
       buttons.forEach(element => {
         let item = items[Math.floor(Math.random() * items.length)];
-        btns += `<div style="width:calc(50% - 6px)" class="splbtn"><button type="button" >${element}<br>(${item} of your peer group uses this product)</button>
-        <button type="button" onclick="openURL()">Confirm Viability & Apply Online</button>
-        <button type="button" onclick="openURL()">Schedule a call with a representative</button>
-        <button type="button" onclick="openURL()">Learn more/FAQs</button></div>`;
+        // <button type="button" class="tooltip fade" data-title="Hypertext Markup Language" >${element}<br>(${item} of your peer group uses this product)</button>
+
+
+        let msg = tooltip[element]
+        btns += `<div style="width:calc(50% - 6px)" class="splbtn" >
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title=${msg}>${element}<br>(${item} of your peer group uses this product)</button>
+        <button type="button" onclick="openURL('${url[element]}')">Confirm Viability & Apply Online</button>
+        <button type="button" onclick="openURL('${url[element]}')">Schedule a call with a representative</button>
+        <button type="button" onclick="openURL('${url[element]}')">Learn more/FAQs</button></div>`;
       });
     }
   } else {
@@ -260,8 +309,44 @@ const btnclick = (target, topic, key) => {
 
 }
 
-const openURL = () => {
-  window.open("https://www.usbank.com/about-us-bank/online-security/fraud-prevention.html", "_blank");
+
+const login = (user) => {
+  if (user == 'new') {
+    sessionStorage.login = false;
+    userMessage('New User');
+    initChatbot()
+  }
+  else {
+    welcomeMessage()
+    //initChatbot()
+  }
+}
+
+const authentication = () => {
+  $('#formLoginNew').hide();
+  sessionStorage.username = $('#userInput').val();
+  $chatbotMessages.innerHTML += `<li
+  class='is-ai animation'
+  id='is-loading'>
+<div class = "message_container">
+<div class = "assigning_margin">
+    <div class="is-ai__profile-picture circle">
+    </div>
+    <div class ="message_content">
+    <div>
+    <div class='chatbot__message1'>
+    <p class = 'chatbot__message'> You are successfully authenticated  
+      </div>
+      </div>
+      </div>
+      </div>
+  </li>`;
+  sessionStorage.login = true;
+  initChatbot()
+}
+
+const openURL = (url) => {
+  window.open(url != 'undefined' ? url : "https://www.usbank.com/about-us-bank/online-security/fraud-prevention.html", "_blank");
 }
 
 
@@ -361,7 +446,8 @@ const send = (text = "", target, topic) => {
       },
       body: JSON.stringify({
         "source": target,
-        "topic": topic
+        "topic": topic,
+        "login": sessionStorage.login
       }),
     })
       .then(response => response.json())
@@ -387,3 +473,79 @@ const send = (text = "", target, topic) => {
     getAnswer(text)
   }
 };
+
+function welcomeMessage() {
+  $chatbotMessages.innerHTML +=
+    `<div class="formLoginNew">
+    <div>
+      <h2 class="account_login">
+        Account Login
+      </h2>
+    </div>
+  <div>
+  <label class="form_control__select">
+    <div class="label_text_container">
+      <p class="labelText_text">
+        Account Type
+      </p>
+    </div>
+    <div class="form_control_select__container">
+      <select id="select-62f76fee-97d0-4cae-b82c-0069492f6a9d" name="" class="">
+        <option value="1">Online banking</option>
+        <option value="2">Online investing</option>
+        <option value="3">Business banking</option>
+        <option value="4">Corporate &amp; commercial</option>
+        <option value="5">Institutional</option>
+      </select>
+      <div class="helper-text__container" id="helper-62f76fee-97d0-4cae-b82c-0069492f6a9d__container"></div>
+    </div>
+  </label>
+  <div id="aw-personal-id" class="form-control__input">
+    <label id="userNameLabel">Username</label>
+    <input name="Username" type="text" inputmode="text" id="userInput">
+  </div>
+  <div id="aw-password" class="form-control__input    show-hide">
+  <label id = "passInputLabel">Password</label>
+  <input name="Password" type="password" inputmode="text" id="passInput" class="" maxlength="100" pattern=".*" placeholder="" autocomplete="off" aria-invalid="false" value="">
+  <button class="usb-button button--text button--small usb-input__show-hide" name="Show" type="button" aria-label="Show Password">Show</button>
+  </div>
+  <div class="auth-continue-button-align">
+  <button  class="usb-button button--primary button--default login-button-continue" name="" type="button" onclick="authentication()">Log in</button></div>
+  </div>
+  </div>`
+  scrollDown();
+
+
+  $("#userInput").focus(function () {
+    // if($(this).id == "userInput"){
+    $("#userNameLabel").addClass("is-focused")
+    // }else if($(this).id == "passInput"){
+    //   $("#passInputLabel").addClass("is-focused")
+    // }
+
+  });
+
+  $("#passInput").focus(function () {
+    // if($(this).id == "userInput"){
+    $("#passInputLabel").addClass("is-focused")
+  });
+
+
+  $("#userInput").focusout(function () {
+    // if($(this).id == "userInput"){
+    if (!$("#userInput").val()) {
+      $("#userNameLabel").removeClass("is-focused")
+    }
+
+  });
+
+  $("#passInput").focusout(function () {
+    // if($(this).id == "userInput"){
+    if (!$("#passInput").val()) {
+      $("#passInputLabel").removeClass("is-focused");
+    }
+
+  });
+  return;
+
+}

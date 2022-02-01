@@ -964,3 +964,251 @@ strong {
   background-repeat: no-repeat;
   z-index: 1;
 }
+/* Tooltip for button */
+/* setup tooltips */
+.tooltip {
+  position: relative;
+}
+.tooltip:before,
+.tooltip:after {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+.tooltip:after {
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid rgba(0, 0, 0, 0.75);
+  border-left: 6px solid transparent;
+  content: "";
+  height: 0;
+  top: 120px;
+  left: 120px;
+  width: 0;
+}
+.tooltip:before {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 2px;
+  color: #fff;
+  content: attr(data-title);
+  font-size: 14px;
+  padding: 6px 10px;
+  top: 26px;
+  white-space: nowrap;
+}
+
+/* the animations */
+/* fade */
+.tooltip.fade:after,
+.tooltip.fade:before {
+  transform: translate3d(0, -10px, 0);
+  transition: all 0.15s ease-in-out;
+}
+.tooltip.fade:hover:after,
+.tooltip.fade:hover:before {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.formLoginNew {
+  height: auto;
+  clear: both;
+  border-radius: 15px;
+  padding: 25px;
+  box-sizing: border-box;
+  background: #fff !important;
+  text-align: left;
+}
+
+.account_login {
+  text-align: left;
+  font-size: 20px;
+  color: #2c2c2c;
+  line-height: 1.25em;
+  font-weight: normal;
+  margin: 0 0 10px 0;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.form_control__select {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  position: relative;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.form_control__select .label_text_container {
+  display: block;
+  color: #6e6e6e;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.form_control__select .label_text_container .labelText_text {
+  font-size: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin: 0 0 40px 0;
+}
+
+.form_control_select__container {
+  height: auto !important;
+  background-color: #fff;
+  border-bottom: 1px solid #858585;
+  display: relative;
+  height: 1.75em;
+}
+
+.form_control_select__container select {
+  font-size: 16px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  color: #2c2c2c;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  line-height: unset;
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  width: 100%;
+  padding-bottom: 0.25rem;
+  height: 100%;
+  transition: all 0.3s ease;
+  outline: 0;
+  box-shadow: none;
+}
+
+.helper-text__container {
+  line-height: 1.5;
+  padding-top: 0.25rem;
+  display: flex;
+}
+
+.form-control__input {
+  position: relative;
+  min-height: 3rem;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.form-control__input label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left bottom;
+  transform: translateY(1rem) scale(1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.form-control__input input {
+  color: #2c2c2c;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid #858585;
+  border-radius: 0;
+  margin-bottom: 1px;
+  width: 100%;
+  padding-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+/* .form-control__input label:focus  */
+.form-control__input label.is-focused {
+  /* color: #0a41c5;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5; */
+  transform: translateY(-0.5rem) scale(0.75);
+}
+
+.form-control__input input:focus {
+  border-bottom: 1px solid #0a41c5;
+  margin: 0;
+  outline: 2px solid #61a0f7;
+  padding-left: 0.25rem;
+}
+
+.form-control__input.show-hide button {
+  margin: 0;
+  position: absolute;
+  right: -0.25rem;
+  top: 0.5rem;
+  color: #6e6e6e;
+  font-size: 0.75rem;
+  font-weight: 400;
+  border: none;
+  padding: 1rem 0.5rem;
+}
+
+.usb-button.button--text {
+  background: 0 0;
+  border: none;
+  color: #0a41c5;
+}
+
+.usb-button.button--small {
+  font-size: 0.875rem;
+  margin: 0.75rem;
+  max-height: 2rem;
+  padding: 0.5rem 1.25rem;
+}
+
+.usb-button {
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 400;
+  height: auto;
+  line-height: 1;
+  max-width: 100%;
+  outline: transparent;
+  position: relative;
+  transition: color 0.1s ease, border 0.1s ease;
+  white-space: nowrap;
+}
+
+.usb-button.button--primary {
+  background: linear-gradient(-180deg, #0a41c5, #0a41c5);
+  border: none;
+  color: #fff;
+}
+
+.usb-button.button--default {
+  margin: 1.5rem;
+  max-height: 2.5rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.usb-button.button--primary.login-button-continue {
+  margin: 15px 0 !important;
+  width: 100% !important;
+}
+
+.usb-button.button--default:after {
+  content: "";
+  position: absolute;
+  top: -0.25rem;
+  bottom: -0.25rem;
+  left: 0;
+  right: 0;
+}
