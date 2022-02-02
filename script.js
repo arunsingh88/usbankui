@@ -266,7 +266,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
           let tTopic = botResponse.topic;
           if (key === 'I know what product I want') {
             console.log('in different product', key)
-            btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >Yes</button>`;
+            btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
           } else if (key === 'EEEE' || key === 'FFFF' || key === 'GGGG' || key === 'HHHH' || key === 'IIII') {
             btns += `<button type="button" class="different"  onclick="callAPI('${target}','${tTopic}','${key}')" >Yes</button>`;
             if (key === 'FFFF') {
