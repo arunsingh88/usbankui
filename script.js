@@ -20,9 +20,9 @@ const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
 const userprofile = {
-  Mike: { industry: "Healthcare", revenue: "$6.2 million", checks: 5, amount: "$5000" },
-  Anne: { industry: "Healthcare", revenue: "$5.3 million", checks: 5, amount: "$5000" },
-  Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 5, amount: "$5000" },
+  Mike: { industry: "Healthcare", revenue: "$6.2 million", checks: 45, amount: 28000 },
+  Anne: { industry: "Healthcare", revenue: "$5.3 million", checks: 120, amount: 32000 },
+  Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 350, amount: 50000 },
 
 }
 sessionStorage.username = 'Mike'
@@ -115,7 +115,7 @@ const getAnswer = (question, qnaId) => {
       if (res.answers[0].answer.includes("$")) {
         if (res.answers[0].answer.split(" ")[0] == "$$") {
           const mainMessage = res.answers[0].answer.replace('$$', '').trim()
-          const btns = `<button type="button" onclick="send('','Vkk1kHjjtwqD61RsSIxe-6','home')" >Yes</button> <button type="button"  onclick="send('','Vkk1kHjjtwqD61RsSIxe-33','home')" >No</button>`;
+          const btns = `<button type="button" onclick="send('','Vkk1kHjjtwqD61RsSIxe-6','home')" >Yes</button> <button type="button"  onclick="send('','Vkk1kHjjtwqD61RsSIxe-4','home')" >No</button>`;
           $chatbotMessages.innerHTML += `<li
           class='is-ai animation'
           id='is-loading'>
@@ -249,8 +249,8 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
 
   //removeLoader();
   let botResponse = content.response;
-  let mainMessage = botResponse.message.replace("XXX", sessionStorage.username);
-  let subMessage = (botResponse.payload.message || '').replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue);
+  let mainMessage = botResponse.message.replace("XXX", sessionStorage.username)
+  let subMessage = (botResponse.payload.message || '').replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue).replace("qqq", userprofile[sessionStorage.username].checks).replace("$www", '$' + userprofile[sessionStorage.username].amount);
   let btns = "";
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
@@ -268,13 +268,18 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
             console.log('in different product', key)
             btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
           } else if (key === 'EEEE' || key === 'FFFF' || key === 'GGGG' || key === 'HHHH' || key === 'IIII') {
-            btns += `<button type="button" class="different"  onclick="callAPI('${target}','${tTopic}','${key}')" >Yes</button>`;
-            if (key === 'FFFF') {
-            } else if (key === 'GGGG') {
-            } else if (key === 'HHHH') {
-            } else if (key === 'IIII') {
-            } else {
+            if (userprofile[sessionStorage.username].checks < 50 && userprofile[sessionStorage.username].amount < 30000 && key === 'EEEE') {
+              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+            } else if (userprofile[sessionStorage.username].checks < 50 && userprofile[sessionStorage.username].amount >= 30000 && key === 'FFFF') {
+              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+            } else if ((userprofile[sessionStorage.username].checks >= 50 && userprofile[sessionStorage.username].checks < 300) && userprofile[sessionStorage.username].amount >= 30000 && key === 'GGGG') {
+              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+            } else if ((userprofile[sessionStorage.username].checks >= 50 && userprofile[sessionStorage.username].checks < 300) && userprofile[sessionStorage.username].amount < 30000 && key === 'HHHH') {
+              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+            } else if (userprofile[sessionStorage.username].checks >= 300 && key === 'IIII') {
+              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
             }
+
           } else {
             btns += `<button type="button"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
           }
@@ -294,7 +299,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         "Paper Positive Pay": "Paper Positive Pay is a check payment protection solution that helps you detect check fraud by electronically matching checks to items that you disbursed",
         "ACH Positive Pay": "ACH Positive Pay is an ACH payment protection solution that prevents unauthorized debits against your accounts",
         "Deposit Express": "Allows small businesses to deposit checks electronically to their U.S. Bank business accounts using a desktop check scanner and a PC",
-        "Mobile Deposit Express": "Allows businesses to deposit checks using a mobile device from a remote location or from their office",
+        "Mobile Check Deposit": "Allows businesses to deposit checks using a mobile device from a remote location or from their office",
         "On-Site Electronic Deposit": "Enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
 
       }
@@ -306,7 +311,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
         "ACH Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
         "Deposit Express": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html",
-        "Mobile Deposit Express": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html",
+        "Mobile Check Deposit": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html",
         "On-Site Electronic Deposit": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html",
 
       }
