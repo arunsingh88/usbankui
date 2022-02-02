@@ -202,7 +202,7 @@ const initChatbot = (refresh) => {
 //initChatbot();
 
 const setupChatbot = () => {
-  const mainMessage = "Hello, I\u2019m Joey, your dedicated resource to finding the right solution. To get started, please tell me, Are you existing user or a new user?"
+  const mainMessage = "Hello, I\u2019m Joey, your dedicated resource to finding the right solution. To get started, please tell me, are you existing user or a new user?"
   const btns = `<button type="button" onclick="login('new')" >New User</button> <button type="button"  onclick="login('existing')" >Existing User</button>`;
   $chatbotMessages.innerHTML += `<li
   class='is-ai animation'
