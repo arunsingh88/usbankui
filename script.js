@@ -322,7 +322,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
 
         let msg = tooltip[element]
         btns += `<div style="width:calc(50% - 6px)" class="splbtn" >
-        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="${msg}">${element}<br>(${item} of your peer group uses this product)</button>
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="${msg}">${element}<br><br><span style = "font-size: 12px;font-style: italic">(${item} of peers in your industry with similar monthly revenue use this product)</span></button>
         <button type="button" onclick="openURL('${url[element]}')">Confirm Viability & Apply Online</button>
         <button type="button" onclick="openURL('${url[element]}')">Schedule a call with a representative</button>
         <button type="button" onclick="openURL('${url[element]}')">Learn more/FAQs</button></div>`;
