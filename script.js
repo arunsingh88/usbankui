@@ -266,7 +266,15 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
           let tTopic = botResponse.topic;
           if (key === 'I know what product I want') {
             console.log('in different product', key)
-            btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
+            btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >Yes</button>`;
+          } else if (key === 'EEEE' || key === 'FFFF' || key === 'GGGG' || key === 'HHHH' || key === 'IIII') {
+            btns += `<button type="button" class="different"  onclick="callAPI('${target}','${tTopic}','${key}')" >Yes</button>`;
+            if (key === 'FFFF') {
+            } else if (key === 'GGGG') {
+            } else if (key === 'HHHH') {
+            } else if (key === 'IIII') {
+            } else {
+            }
           } else {
             btns += `<button type="button"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
           }
@@ -280,7 +288,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       let items = ['15%', '25%', '10%', '4%', '7%', '12%']
       let tooltip = {
         "ACH": "Service that allows customers to eliminate paper checks by using electronic transactions with 1-2 days settlement and bulk processing capabilities",
-        "Real time payment": "It allows payment originators to make payments to their trading partners in real-time 24x7",
+        "Real-time payments": "It allows payment originators to make payments to their trading partners in real-time 24x7",
         "Wire": "Moves funds quickly and securely around the country and the world for immediate availability",
         "Disbursements via Zelle": "Allows businesses of all sizes to initiate low-cost electronic payments to consumer recipients without the hassle of collecting and storing their bank account information",
         "Paper Positive Pay": "Paper Positive Pay is a check payment protection solution that helps you detect check fraud by electronically matching checks to items that you disbursed",
@@ -292,7 +300,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       }
       let url = {
         "ACH": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/ach.html",
-        "Real time payment": "https://www.usbank.com/financialiq/improve-your-operations/manage-payments/real-time-payments-the-next-major-treasury-disruptor.html",
+        "Real-time payments": "https://www.usbank.com/financialiq/improve-your-operations/manage-payments/real-time-payments-the-next-major-treasury-disruptor.html",
         "Wire": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/wire-transfers.html",
         "Disbursements via Zelle": "https://www.usbank.com/online-mobile-banking/zelle-person-to-person-payments.html",
         "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
@@ -309,7 +317,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
 
         let msg = tooltip[element]
         btns += `<div style="width:calc(50% - 6px)" class="splbtn" >
-        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title=${msg}>${element}<br>(${item} of your peer group uses this product)</button>
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="${msg}">${element}<br>(${item} of your peer group uses this product)</button>
         <button type="button" onclick="openURL('${url[element]}')">Confirm Viability & Apply Online</button>
         <button type="button" onclick="openURL('${url[element]}')">Schedule a call with a representative</button>
         <button type="button" onclick="openURL('${url[element]}')">Learn more/FAQs</button></div>`;
