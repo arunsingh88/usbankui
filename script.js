@@ -20,9 +20,9 @@ const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
 const userprofile = {
-  Mike: { industry: "Healthcare", revenue: "$6.2 million", checks: 45, amount: 28000 },
-  Anne: { industry: "Healthcare", revenue: "$5.3 million", checks: 120, amount: 32000 },
-  Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 350, amount: 50000 },
+  Mike: { industry: "Healthcare", revenue: "$6.2 million", checks: 45, amount: 28000, formatamount: "28,000" },
+  Anne: { industry: "Healthcare", revenue: "$5.3 million", checks: 120, amount: 32000, formatamount: "32,000" },
+  Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 350, amount: 50000, formatamount: "50,000" },
 
 }
 sessionStorage.username = 'Mike'
@@ -250,7 +250,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   //removeLoader();
   let botResponse = content.response;
   let mainMessage = botResponse.message.replace("XXX", sessionStorage.username)
-  let subMessage = (botResponse.payload.message || '').replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue).replace("qqq", userprofile[sessionStorage.username].checks).replace("$www", '$' + userprofile[sessionStorage.username].amount);
+  let subMessage = (botResponse.payload.message || '').replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue).replace("qqq", userprofile[sessionStorage.username].checks).replace("$www", '$' + userprofile[sessionStorage.username].formatamount);
   let btns = "";
   console.log("mainMessage: ", mainMessage);
   if (botResponse.payload.type == "buttons") {
