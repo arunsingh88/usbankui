@@ -292,16 +292,15 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
     if (buttons.length > 0) {
       let items = ['15%', '25%', '10%', '4%', '7%', '12%']
       let tooltip = {
-        "ACH": "Service that allows customers to eliminate paper checks by using electronic transactions with 1-2 days settlement and bulk processing capabilities",
-        "Real-time payments": "It allows payment originators to make payments to their trading partners in real-time 24x7",
-        "Wire": "Moves funds quickly and securely around the country and the world for immediate availability",
-        "Disbursements via Zelle": "Allows businesses of all sizes to initiate low-cost electronic payments to consumer recipients without the hassle of collecting and storing their bank account information",
+        "ACH": "ACH allows customers to eliminate paper checks by using electronic transactions with 1-2 days settlement and bulk processing capabilities",
+        "Real-time payments": "Real-time Payments allow payment originators to make payments to their trading partners in real-time 24x7",
+        "Wire": "Wire Transfer moves funds quickly and securely around the country and the world for immediate availability",
+        "Disbursements via Zelle": "Disbursements via Zelle allows businesses of all sizes to initiate low-cost electronic payments to consumer recipients without the hassle of collecting and storing their bank account information",
         "Paper Positive Pay": "Paper Positive Pay is a check payment protection solution that helps you detect check fraud by electronically matching checks to items that you disbursed",
         "ACH Positive Pay": "ACH Positive Pay is an ACH payment protection solution that prevents unauthorized debits against your accounts",
-        "Deposit Express": "Allows small businesses to deposit checks electronically to their U.S. Bank business accounts using a desktop check scanner and a PC",
-        "Mobile Check Deposit": "Allows businesses to deposit checks using a mobile device from a remote location or from their office",
-        "On-Site Electronic Deposit": "Enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
-
+        "Deposit Express": "Deposit Express allows small businesses to deposit checks electronically to their U.S. Bank business accounts using a desktop check scanner and a PC",
+        "Mobile Check Deposit": "Mobile Check Deposit allows businesses to deposit checks using a mobile device from a remote location or from their office",
+        "On-Site Electronic Deposit": "On-site Electronic Deposit enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
       }
       let url = {
         "ACH": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/ach.html",
