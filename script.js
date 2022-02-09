@@ -20,9 +20,9 @@ const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
 const $chatbotSubmit = $document.querySelector(".chatbot__submit");
 const userprofile = {
-  Mike: { industry: "Healthcare", revenue: "$6.2 million", checks: 45, amount: 28000, formatamount: "28,000" },
-  Anne: { industry: "Healthcare", revenue: "$5.3 million", checks: 120, amount: 32000, formatamount: "32,000" },
-  Robin: { industry: "Manufacturing", revenue: "$1.8 million", checks: 350, amount: 50000, formatamount: "50,000" },
+  Mike: { industry: "Healthcare", revenue: "$520,000", checks: 45, amount: 28000, formatamount: "28,000" },
+  Anne: { industry: "Healthcare", revenue: "$440,000", checks: 120, amount: 32000, formatamount: "32,000" },
+  Robin: { industry: "Manufacturing", revenue: "$150,000", checks: 350, amount: 50000, formatamount: "50,000" },
 
 }
 sessionStorage.username = 'Mike'
@@ -144,12 +144,15 @@ const getAnswer = (question, qnaId) => {
           </li>`;
           scrollDown()
         } else if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
-          send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
+          nlpData("Would you like to know about Prevent Payment Fraud?", 'cSqQtDFlFd2osmKXhp_y-4', 'Protect_Payments', 'noSourceId', 'noTopic')
+          // send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
         } else if (res.answers[0].answer.split(" ")[1] == "dyWy75i-FhSXQeEBGfzN-10") {
-          send("", res.answers[0].answer.split(" ")[1], "Money_Transfer");
+          // send("", res.answers[0].answer.split(" ")[1], "Money_Transfer");
+          nlpData("Would you like to know about Transfer Money?", 'cSqQtDFlFd2osmKXhp_y-3', 'home', 'noSourceId', 'noTopic')
         }
         else {
-          send("", res.answers[0].answer.split(" ")[1], "Digital_Payments");
+          nlpData("Would you like to know about Deposit Checks?", 'cSqQtDFlFd2osmKXhp_y-5', 'home', 'noSourceId', 'noTopic')
+          //send("", res.answers[0].answer.split(" ")[1], "Digital_Payments");
         }
       } else {
         setResponse(response, loadingDelay + aiReplyDelay);
@@ -162,6 +165,39 @@ const getAnswer = (question, qnaId) => {
       console.log(error);
     });
 };
+
+const nlpData = (mainMsg, yesSourceId, yesTopic, noSourceId, noTopic) => {
+  console.log(mainMsg + yesSourceId + yesTopic + noSourceId + noTopic)
+  let mainMessage = mainMsg;
+  let btns = `<button type="button" onclick="send('','${yesSourceId}','${yesTopic}')" >Yes</button> <button type="button"  onclick="send('','${noSourceId}','${noTopic}')" >No</button>`;
+  $chatbotMessages.innerHTML += `<li
+  class='is-ai animation'
+  id='is-loading'>
+<div class = "message_container">
+<div class = "assigning_margin">
+    <div class="is-ai__profile-picture circle">
+    </div>
+    <div class ="message_content">
+    <div>
+    <div class='chatbot__message1'>
+    <p class = 'chatbot__message'> ${mainMessage}   
+      </div>
+      </div>
+      </div>
+      </div>
+      <!--Button body--!>
+    <div class = "input-body">
+    <div class = "button-area" style = "height:auto"> 
+    <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
+  <div class= "chatbotBtn">
+  ${btns}
+  </div>
+  </div>
+  </div>
+  </div>
+  </li>`;
+  scrollDown()
+}
 
 const initChatbot = (refresh) => {
   if (refresh == 'refresh') {
@@ -390,7 +426,7 @@ const login = (user) => {
 }
 
 const authentication = () => {
-  $('#formLoginNew').hide();
+  $('.formLoginNew').hide();
   sessionStorage.username = $('#userInput').val();
   $chatbotMessages.innerHTML += `<li
   class='is-ai animation'
