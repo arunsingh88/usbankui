@@ -367,7 +367,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         "Paper Positive Pay": "Paper Positive Pay is a check payment protection solution that helps you detect check fraud by electronically matching checks to items that you disbursed",
         "ACH Positive Pay": "ACH Positive Pay is an ACH payment protection solution that prevents unauthorized debits against your accounts",
         "Deposit Express": "Deposit Express allows small businesses to deposit checks electronically to their U.S. Bank business accounts using a desktop check scanner and a PC",
-        "Mobile check Deposit": "Mobile Check Deposit allows businesses to deposit checks using a mobile device from a remote location or from their office",
+        "Mobile Check Deposit": "Mobile Check Deposit allows businesses to deposit checks using a mobile device from a remote location or from their office",
         "On-Site Electronic Deposit": "On-site Electronic Deposit enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
       }
       let url = {
@@ -378,7 +378,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html||",
         "ACH Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html||",
         "Deposit Express": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html||",
-        "Mobile check Deposit": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html||",
+        "Mobile Check Deposit": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html||",
         "On-Site Electronic Deposit": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html||",
 
       }
