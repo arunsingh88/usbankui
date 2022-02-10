@@ -755,7 +755,7 @@ strong {
   height: 75px;
 }
 .animation_apply {
-  animation: bounce 1s;
+  animation: bounce 2s;
   animation-direction: alternate;
   animation-timing-function: cubic-bezier(0.5, 0.02, 1, 0.3);
   animation-iteration-count: infinite;
