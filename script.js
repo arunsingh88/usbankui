@@ -15,6 +15,7 @@ const $chatbotMessageWindow = $document.querySelector(
   ".chatbot__message-window");
 
 const $chatbotHeader = $document.querySelector(".close_btn");
+const $chatbotLoginIndicator = $document.querySelector(".chatbot__header");
 const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
@@ -144,7 +145,7 @@ const getAnswer = (question, qnaId) => {
           </li>`;
           scrollDown()
         } else if (res.answers[0].answer.split(" ")[1] == "bWfzHslepsMsLRYXzKlo-162") {
-          nlpData("Would you like to know about Prevent Payment Fraud?", 'cSqQtDFlFd2osmKXhp_y-4', 'Protect_Payments', 'noSourceId', 'noTopic')
+          nlpData("Would you like to know about Prevent Payment Fraud?", 'cSqQtDFlFd2osmKXhp_y-4', 'home', 'noSourceId', 'noTopic')
           // send("", res.answers[0].answer.split(" ")[1], "Protect_Payments");
         } else if (res.answers[0].answer.split(" ")[1] == "dyWy75i-FhSXQeEBGfzN-10") {
           // send("", res.answers[0].answer.split(" ")[1], "Money_Transfer");
@@ -169,7 +170,7 @@ const getAnswer = (question, qnaId) => {
 const nlpData = (mainMsg, yesSourceId, yesTopic, noSourceId, noTopic) => {
   console.log(mainMsg + yesSourceId + yesTopic + noSourceId + noTopic)
   let mainMessage = mainMsg;
-  let btns = `<button type="button" onclick="send('','${yesSourceId}','${yesTopic}')" >Yes</button> <button type="button"  onclick="send('','${noSourceId}','${noTopic}')" >No</button>`;
+  let btns = `<button type="button" onclick="send('','${yesSourceId}','${yesTopic}')" >Yes</button> <button type="button"  onclick="displayNoOptionProduct()" >No</button>`;
   $chatbotMessages.innerHTML += `<li
   class='is-ai animation'
   id='is-loading'>
@@ -199,6 +200,37 @@ const nlpData = (mainMsg, yesSourceId, yesTopic, noSourceId, noTopic) => {
   scrollDown()
 }
 
+const displayNoOptionProduct = () => {
+  const mainMessage = 'Thanks! What product need can I help you with today?<br>Select the options'
+  const btns = `<button type="button" onclick="send('','cSqQtDFlFd2osmKXhp_y-5','home')" >Deposit Checks</button> <button type="button" onclick="send('','cSqQtDFlFd2osmKXhp_y-3','home')" >Transfer Money</button><button type="button" onclick="send('','cSqQtDFlFd2osmKXhp_y-4','home')" >Prevent Payment Fraud</button>`;
+  $chatbotMessages.innerHTML += `<li
+          class='is-ai animation'
+          id='is-loading'>
+        <div class = "message_container">
+        <div class = "assigning_margin">
+            <div class="is-ai__profile-picture circle">
+            </div>
+            <div class ="message_content">
+            <div>
+            <div class='chatbot__message1'>
+            <p class = 'chatbot__message'> ${mainMessage}   
+              </div>
+              </div>
+              </div>
+              </div>
+              <!--Button body--!>
+            <div class = "input-body">
+            <div class = "button-area" style = "height:auto"> 
+            <div class = "optionDiv"> <span class = "option">Choose an option</span> </div>
+          <div class= "chatbotBtn">
+          ${btns}
+          </div>
+          </div>
+          </div>
+          </div>
+          </li>`;
+  scrollDown()
+}
 const initChatbot = (refresh) => {
   if (refresh == 'refresh') {
     $chatbotMessages.innerHTML = ''
@@ -339,15 +371,15 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         "On-Site Electronic Deposit": "On-site Electronic Deposit enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
       }
       let url = {
-        "ACH": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/ach.html",
-        "Real-time payments": "https://www.usbank.com/financialiq/improve-your-operations/manage-payments/real-time-payments-the-next-major-treasury-disruptor.html",
-        "Wire": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/wire-transfers.html",
-        "Disbursements via Zelle": "https://www.usbank.com/online-mobile-banking/zelle-person-to-person-payments.html",
-        "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
-        "ACH Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html",
-        "Deposit Express": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html",
-        "Mobile check Deposit": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html",
-        "On-Site Electronic Deposit": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html",
+        "ACH": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/ach.html||",
+        "Real-time payments": "https://www.usbank.com/financialiq/improve-your-operations/manage-payments/real-time-payments-the-next-major-treasury-disruptor.html||",
+        "Wire": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/wire-transfers.html||",
+        "Disbursements via Zelle": "https://www.usbank.com/online-mobile-banking/zelle-person-to-person-payments.html||",
+        "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html||",
+        "ACH Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html||",
+        "Deposit Express": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html||",
+        "Mobile check Deposit": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html||",
+        "On-Site Electronic Deposit": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html||",
 
       }
       buttons.forEach(element => {
@@ -358,9 +390,9 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         let msg = tooltip[element]
         btns += `<div style="width:calc(50% - 6px)" class="splbtn" >
         <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="${msg}">${element}<br><br><span style = "font-size: 12px;font-style: italic">(${item} of peers in your industry with similar monthly revenue use this product)</span></button>
-        <button type="button" onclick="openURL('${url[element]}')">Confirm Viability & Apply Online</button>
-        <button type="button" onclick="openURL('${url[element]}')">Schedule a call with a representative</button>
-        <button type="button" onclick="openURL('${url[element]}')">Learn more/FAQs</button></div>`;
+        <button type="button" onclick="openURL('${url[element].split("|")[0]}')">Confirm Viability & Apply Online</button>
+        <button type="button" onclick="openURL('${url[element].split("|")[1]}')">Schedule a call with a representative</button>
+        <button type="button" onclick="openURL('${url[element].split("|")[2]}')">Learn more/FAQs</button></div>`;
       });
     }
   } else {
@@ -416,6 +448,7 @@ const btnclick = (target, topic, key) => {
 const login = (user) => {
   if (user == 'new') {
     sessionStorage.login = false;
+    $chatbotLoginIndicator.style.background = "#fff";
     userMessage('New User');
     initChatbot()
   }
@@ -426,6 +459,7 @@ const login = (user) => {
 }
 
 const authentication = () => {
+  $chatbotLoginIndicator.style.background = "#1b3281";
   $('.formLoginNew').hide();
   sessionStorage.username = $('#userInput').val();
   $chatbotMessages.innerHTML += `<li
