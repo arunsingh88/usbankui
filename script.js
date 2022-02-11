@@ -3,12 +3,11 @@ const baseUrl = "https://chatbot-py.azurewebsites.net/chatbot";
 //const baseUrl = "http://127.0.0.1:5000/chatbot"
 const qnaUrl = "https://vcsm-qna-stg-cqa.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=ACP-QNA&api-version=2021-10-01&deploymentName=production";
 const sessionId = "1";
-const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
+//const loader = `<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>`;
 const errorMessage = "My apologies, I'm not available at the moment. =^.^=";
 const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 const loadingDelay = 700;
 const aiReplyDelay = 1800;
-
 const $document = document;
 const $chatbot = $document.querySelector(".chatbot");
 const $chatbotMessageWindow = $document.querySelector(
@@ -40,7 +39,32 @@ document.addEventListener(
   },
   false);
 
-
+const refresh = () => {
+  $chatbotMessages.innerHTML = '';
+  $chatbotLoginIndicator.style.background = "#fff";
+  sessionStorage.login = false
+  setupChatbot()
+}
+const loader = () => {
+  $chatbotMessages.innerHTML += `<li
+  class='is-ai animation'
+  id='loader-animation'>
+<div class = "message_container">
+<div class = "assigning_margin">
+    <div class="is-ai__profile-picture circle">
+    </div>
+    <div class ="message_content">
+    <div>
+    <div class='chatbot__message1'>
+    <span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>
+      </div>
+      </div>
+      </div>
+      </div>
+      <!--Button body--!>
+  </div>
+  </li>`
+}
 
 $chatbotHeader.addEventListener(
   "click",
@@ -113,10 +137,11 @@ const getAnswer = (question, qnaId) => {
       }
       console.log('Answer', res.answers[0].answer)
       console.log('Answer', res.answers[0].answer.split())
+      removeLoader();
       if (res.answers[0].answer.includes("$")) {
         if (res.answers[0].answer.split(" ")[0] == "$$") {
           const mainMessage = res.answers[0].answer.replace('$$', '').trim()
-          const btns = `<button type="button" onclick="send('','Vkk1kHjjtwqD61RsSIxe-6','home')" >Yes</button> <button type="button"  onclick="send('','Vkk1kHjjtwqD61RsSIxe-4','home')" >No</button>`;
+          const btns = `<button type="button" onclick="sendMsg('','Vkk1kHjjtwqD61RsSIxe-6','home','Yes')" >Yes</button> <button type="button"  onclick="sendMsg('','Vkk1kHjjtwqD61RsSIxe-4','home','No')" >No</button>`;
           $chatbotMessages.innerHTML += `<li
           class='is-ai animation'
           id='is-loading'>
@@ -170,7 +195,7 @@ const getAnswer = (question, qnaId) => {
 const nlpData = (mainMsg, yesSourceId, yesTopic, noSourceId, noTopic) => {
   console.log(mainMsg + yesSourceId + yesTopic + noSourceId + noTopic)
   let mainMessage = mainMsg;
-  let btns = `<button type="button" onclick="send('','${yesSourceId}','${yesTopic}')" >Yes</button> <button type="button"  onclick="displayNoOptionProduct()" >No</button>`;
+  let btns = `<button type="button" onclick="sendMsg('','${yesSourceId}','${yesTopic}','Yes')" >Yes</button> <button type="button"  onclick="displayNoOptionProduct()" >No</button>`;
   $chatbotMessages.innerHTML += `<li
   class='is-ai animation'
   id='is-loading'>
@@ -202,7 +227,7 @@ const nlpData = (mainMsg, yesSourceId, yesTopic, noSourceId, noTopic) => {
 
 const displayNoOptionProduct = () => {
   const mainMessage = 'Thanks! What product need can I help you with today?<br>Select the options'
-  const btns = `<button type="button" onclick="send('','cSqQtDFlFd2osmKXhp_y-5','home')" >Deposit Checks</button> <button type="button" onclick="send('','cSqQtDFlFd2osmKXhp_y-3','home')" >Transfer Money</button><button type="button" onclick="send('','cSqQtDFlFd2osmKXhp_y-4','home')" >Prevent Payment Fraud</button>`;
+  const btns = `<button type="button" onclick="sendMsg('','cSqQtDFlFd2osmKXhp_y-5','home','Deposit Checks')" >Deposit Checks</button> <button type="button" onclick="sendMsg('','cSqQtDFlFd2osmKXhp_y-3','home','Transfer Money')" >Transfer Money</button><button type="button" onclick="sendMsg('','cSqQtDFlFd2osmKXhp_y-4','home','Prevent Payment Fraud')" >Prevent Payment Fraud</button>`;
   $chatbotMessages.innerHTML += `<li
           class='is-ai animation'
           id='is-loading'>
@@ -233,7 +258,8 @@ const displayNoOptionProduct = () => {
 }
 const initChatbot = (refresh) => {
   if (refresh == 'refresh') {
-    $chatbotMessages.innerHTML = ''
+    $chatbotMessages.innerHTML = '';
+
   }
   fetch(baseUrl, {
     method: "POST",
@@ -308,6 +334,7 @@ const userMessage = content => {
       </p>
       <span class='chatbot__arrow chatbot__arrow--right'></span>
     </li>`;
+  loader();
   scrollDown();
 };
 setupChatbot()
@@ -315,7 +342,7 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   console.log("content in ai: ", content);
   console.log("6");
 
-  //removeLoader();
+  removeLoader();
   let botResponse = content.response;
   let mainMessage = botResponse.message.replace("XXX", sessionStorage.username)
   let subMessage = (botResponse.payload.message || '').replace("YYY", userprofile[sessionStorage.username].industry).replace("ZZZ", userprofile[sessionStorage.username].revenue).replace("qqq", userprofile[sessionStorage.username].checks).replace("$www", '$' + userprofile[sessionStorage.username].formatamount);
@@ -337,15 +364,15 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
             btns += `<button type="button" class="different"  onclick="btnclick('${target}','${tTopic}','${key}')" >${key}</button>`;
           } else if (key === 'EEEE' || key === 'FFFF' || key === 'GGGG' || key === 'HHHH' || key === 'IIII') {
             if (userprofile[sessionStorage.username].checks < 50 && userprofile[sessionStorage.username].amount < 30000 && key === 'EEEE') {
-              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+              btns += `<button type="button" onclick="sendMsg('','${target}','${tTopic}','Yes')" >Yes</button>`;
             } else if (userprofile[sessionStorage.username].checks < 50 && userprofile[sessionStorage.username].amount >= 30000 && key === 'FFFF') {
-              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+              btns += `<button type="button" onclick="sendMsg('','${target}','${tTopic}','Yes')" >Yes</button>`;
             } else if ((userprofile[sessionStorage.username].checks >= 50 && userprofile[sessionStorage.username].checks < 300) && userprofile[sessionStorage.username].amount >= 30000 && key === 'GGGG') {
-              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+              btns += `<button type="button" onclick="sendMsg('','${target}','${tTopic}','Yes')" >Yes</button>`;
             } else if ((userprofile[sessionStorage.username].checks >= 50 && userprofile[sessionStorage.username].checks < 300) && userprofile[sessionStorage.username].amount < 30000 && key === 'HHHH') {
-              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+              btns += `<button type="button" onclick="sendMsg('','${target}','${tTopic}','Yes')" >Yes</button>`;
             } else if (userprofile[sessionStorage.username].checks >= 300 && key === 'IIII') {
-              btns += `<button type="button" onclick="send('','${target}','${tTopic}')" >Yes</button>`;
+              btns += `<button type="button" onclick="sendMsg('','${target}','${tTopic}','Yes')" >Yes</button>`;
             }
 
           } else {
@@ -371,16 +398,15 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
         "On-Site Electronic Deposit": "On-site Electronic Deposit enables businesses that receive check payments at the point of sale, in a walk-up or drop box environment or by mail to branch offices to deposit all check payments electronically",
       }
       let url = {
-        "ACH": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/ach.html||",
-        "Real-time payments": "https://www.usbank.com/financialiq/improve-your-operations/manage-payments/real-time-payments-the-next-major-treasury-disruptor.html||",
-        "Wire": "https://www.usbank.com/business-banking/business-services/epayments-money-transfers/wire-transfers.html||",
-        "Disbursements via Zelle": "https://www.usbank.com/online-mobile-banking/zelle-person-to-person-payments.html||",
-        "Paper Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html||",
-        "ACH Positive Pay": "https://www.usbank.com/business-banking/business-services/payment-processing/fraud-protection.html||",
-        "Deposit Express": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html||",
-        "Mobile Check Deposit": "https://www.usbank.com/online-mobile-banking/mobile-check-deposit.html||",
-        "On-Site Electronic Deposit": "https://www.usbank.com/business-banking/business-services/payment-processing/remote-deposit-capture.html||",
-
+        "ACH": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1DSZyM9bASolyXy9qORYS0_vILH39I3Bl/view?usp=sharing",
+        "Real-time payments": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1mThYJlmTik-lYfAu2tiTrtGw2rfz09Pf/view?usp=sharing",
+        "Wire": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1tiPrK_HRi85RO0p_91Ef4mvF9oycWwoq/view?usp=sharing",
+        "Disbursements via Zelle": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/19Gji-golk9pzxPBoP5OWRrBWFRSnF-Ao/view;=sharing",
+        "Paper Positive Pay": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1JaNC5pDdO8jbA5ErzxBqXkaTkCMLC6kY/view?usp=sharing",
+        "ACH Positive Pay": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1Py39k4qsTyNRkBBi0RmGtnrrHE4if9rO/view?usp=sharing",
+        "Deposit Express": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1KtVqBe4Haaw4oy6d1eShYwFj5iVpBt8C/view?usp=sharing",
+        "Mobile Check Deposit": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/18TREfXxqO7qeOgw9vY6paYHwf3bBXC6p/view?usp=sharing",
+        "On-Site Electronic Deposit": "https://onlinebanking.usbank.com/Auth/EnrollmentDesktop/Verification|https://appointments.usbank.com/?target-type-appointment=schedule&#/services|https://drive.google.com/file/d/1Y6jvxs0Vg_4Aa8cuumwiP0-XJQoS34SY/view?usp=sharing",
       }
       buttons.forEach(element => {
         let item = items[Math.floor(Math.random() * items.length)];
@@ -428,7 +454,6 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
       </div>
       </div>
       </li>`;
-
 
   scrollDown();
 };
@@ -479,6 +504,7 @@ const authentication = () => {
       </div>
   </li>`;
   sessionStorage.login = true;
+  loader()
   initChatbot()
 }
 
@@ -490,7 +516,7 @@ const openURL = (url) => {
 const removeLoader = () => {
   console.log("7");
   console.log("removing loading icon");
-  let loadingElem = document.getElementById("is-loading");
+  let loadingElem = document.getElementById("loader-animation");
   if (loadingElem) {
     $chatbotMessages.removeChild(loadingElem);
   }
@@ -564,6 +590,7 @@ const scrollDown = () => {
 };
 
 const send = (text = "", target, topic) => {
+  //userMessage(key);
   console.log("5");
   console.log("tgt in send: ", target);
   console.log("topic in send: ", topic);
@@ -610,6 +637,12 @@ const send = (text = "", target, topic) => {
     getAnswer(text)
   }
 };
+
+const sendMsg = (text = "", target, topic, usrMsg) => {
+  userMessage(usrMsg);
+  send(text, target, topic);
+}
+
 
 function welcomeMessage() {
   $chatbotMessages.innerHTML +=
