@@ -110,7 +110,7 @@
 .chatbot__message {
   font-size: 15px;
   display: inline-block;
-  padding: 12px 20px;
+  padding: 12px 10px;
   word-break: break-word;
   margin: 0;
   border-radius: 6px;
@@ -120,7 +120,7 @@
 }
 .is-ai .chatbot__message {
   background-color: #f0f0f0;
-  margin-right: 30px;
+  /* margin-right: 10px; */
 }
 .is-user .chatbot__message {
   background-color: #d20c11;
@@ -438,7 +438,7 @@
   max-width: 82%;
   background-color: rgb(255, 255, 255);
   overflow: hidden;
-  padding: 16px 24px;
+  padding: 16px 14px;
   margin-left: 65px;
   border-radius: 3px;
   box-shadow: none;
@@ -467,11 +467,11 @@
 }
 .is-ai .chatbot__message {
   background-color: #fff;
-  margin-right: 30px;
+  /* margin-right: 10px; */
 }
 .is-user .chatbot__message {
   background-color: rgba(118, 118, 118, 0.838);
-  margin-left: 30px;
+  margin-left: 10px;
   color: #ffffff;
   padding: 20px;
 }
@@ -755,7 +755,7 @@ strong {
   height: 75px;
 }
 .animation_apply {
-  animation: bounce 2s;
+  animation: bounce 1s;
   animation-direction: alternate;
   animation-timing-function: cubic-bezier(0.5, 0.02, 1, 0.3);
   animation-iteration-count: infinite;

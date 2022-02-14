@@ -15,6 +15,8 @@ const $chatbotMessageWindow = $document.querySelector(
 
 const $chatbotHeader = $document.querySelector(".close_btn");
 const $chatbotLoginIndicator = $document.querySelector(".chatbot__header");
+const $chatbotLoginIndicator1 = $document.querySelector(".chatbot__message-window");
+const $chatbotLoginIndicator2 = $document.querySelector(".chatbot__entry");
 const $chatbotMessages = $document.querySelector(".chatbot__messages");
 const $chatbotInput = $document.querySelector(".chatbot__input");
 const $chatbotInputBox = $document.querySelector(".chatbot__entry");
@@ -42,6 +44,8 @@ document.addEventListener(
 const refresh = () => {
   $chatbotMessages.innerHTML = '';
   $chatbotLoginIndicator.style.background = "#fff";
+  $chatbotLoginIndicator1.style.borderStyle = "none";
+  $chatbotLoginIndicator2.style.borderStyle = "none";
   sessionStorage.login = false
   setupChatbot()
 }
@@ -97,6 +101,11 @@ document.getElementById("chat-circle").addEventListener(
     document.getElementById("chat-circle").style.display = "none";
 
   });
+function removeAnimation() {
+  $("#content.animation_apply").css("animation-play-state", "paused");
+
+}
+const myTimeout = setTimeout(removeAnimation, 5000);
 
 const toggle = (element, klass) => {
   const classes = element.className.match(/\S+/g) || [],
@@ -474,6 +483,8 @@ const login = (user) => {
   if (user == 'new') {
     sessionStorage.login = false;
     $chatbotLoginIndicator.style.background = "#fff";
+    $chatbotLoginIndicator1.style.borderStyle = "none";
+    $chatbotLoginIndicator2.style.borderStyle = "none";
     userMessage('New User');
     initChatbot()
   }
@@ -485,6 +496,10 @@ const login = (user) => {
 
 const authentication = () => {
   $chatbotLoginIndicator.style.background = "#1b3281";
+  $chatbotLoginIndicator1.style.borderStyle = "none solid none solid";
+  $chatbotLoginIndicator1.style.borderColor = "#1b3281";
+  $chatbotLoginIndicator2.style.borderStyle = "none solid solid solid";
+  $chatbotLoginIndicator2.style.borderColor = "#1b3281";
   $('.formLoginNew').hide();
   sessionStorage.username = $('#userInput').val();
   $chatbotMessages.innerHTML += `<li
